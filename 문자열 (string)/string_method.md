@@ -52,32 +52,12 @@
   <pre>
     <code>
       var str = "abcdefghi";
-      str.substring(-4); // "abcdefghi" ( -> str.substring(0))
+      str.substring(-4); // "abcdefghi" (str.substring(0))
       str.substring(-4, -2); // "" (str.substring(0, 0))
       str.substring(0, -2); // "" (str.substring(0, 0))
-      str.substring(-4); // "abcdefghi" ( -> str.slice(0))
-      str.slice(-4, -2); // "" (str.slice(0, 0))
-      str.slice(0, -2); // "" (str.substring(0, 0))
-    </code>
-  </pre>
-## Change to String
-* String  
-  -문법: String(number)  
-  문자열로 변환시켜주는 함수이다.
-  
-* toString  
-  -문법: str.toString  
-  문자열로 변환시켜주는 메서드이다.
-
-  <pre>
-    <code>
-      var num = 3.12;
-      console.log(typeof(num)); //number
-      
-      var str1 = String(num);
-      console.log(str1, typeof(str1)); // "3.12" string
-      
-      var str2 = num.toString;
-      console.log(str2, typeof(str2)); // "3.12" string
+      str.substring(-4); // "abcdefghi" (str.substring(0))
+      str.slice(-4); // "fg"
+      str.slice(-4, -2); // "fghi"
+      str.slice(0, -2); // "abcdefg"
     </code>
   </pre>
