@@ -84,10 +84,10 @@
     * 음수인 경우 배열의 끝에서부터 음수의 절대값만큼 거꾸로 계산된다. 음수값의 절대값이 배열의 길이 보다 큰 경우 0으로 설정된다.
   * deleteCount
     * 배열에서 제거할 요소의 수입니다.
-    * 생략하거나 값이 array.length - start보다 크면 start부터 모든 요소를 제거합니다.
-    * deleteCount가 음수라면 어떤 요소도 제거하지 않습니다. 이 때는 최소한 하나의 새로운 요소(item1)를 지정해야 합니다.
+    * 생략하거나 값이 array.length - start보다 크면 start부터 모든 요소를 제거한다.
+    * deleteCount가 음수라면 어떤 요소도 제거하지 않는다. 이 때는 최소한 하나의 새로운 요소(item1)를 지정해야 한다.
   * item1, item2, ...
-    * 배열에 추가할 요소입니다. 아무 요소도 지정하지 않으면 splice()는 요소를 제거하기만 합니다.
+    * 배열에 추가할 요소이다. 아무 요소도 지정하지 않으면 splice()는 요소를 제거하기만 한다.
   <pre>
     <code>
       // 제거
@@ -128,15 +128,15 @@
 ## 배열의 일부 요소 가져오기
 * slice  
   * 문법: array.slice(start[, end])  
-  * 배열열의 start부터 end 전까지 배열의 부분 새로운 문자열을 반환한다.  
+  * 배열열의 start부터 end 전까지 배열의 부분 새로운 문자열을 반환해주는 메서드이다.  
   * splice와 다르게 원본 배열은 바뀌지 않는다. (얕은 복사본을 반환)
   * start
-    * undefined인 경우에는, 0번 인덱스부터 slice 합니다.
-    * 배열의 길이보다 큰 경우에는, 빈 배열을 반환합니다.
+    * undefined인 경우에는, 0번 인덱스부터 slice 한다.
+    * 배열의 길이보다 큰 경우에는, 빈 배열을 반환한다.
     * 음수인 경우 배열의 끝에서부터 음수의 절대값만큼 거꾸로 계산된다. 음수값의 절대값이 배열의 길이 보다 큰 경우 0으로 설정된다.
   * end
-    * 음수인 경우 배열의 끝에서부터의 길이를 나타냅니다. 예를들어 slice(2,-1) 는 세번째부터 끝에서 두번째 요소까지 추출합니다.
-    * 생략하거나 값이 array.length보다 크면 start부터 모든 요소를 추출합니다.
+    * 음수인 경우 배열의 끝에서부터의 길이를 나타낸다. 예를들어 slice(2,-1) 는 세번째부터 끝에서 두번째 요소까지 추출한다.
+    * 생략하거나 값이 array.length보다 크면 start부터 모든 요소를 추출한다.
   <pre>
     <code>
       var arr = ["a", "b", "c", "d", "e"];
@@ -146,6 +146,53 @@
       arr.slice(); // ["a", "b", "c", "d", "e"]
       arr.slice(7); // []
       console.log(arr); // ["a", "b", "c", "d", "e"]
+    </code>
+  </pre>
+
+## 문자열을 배열로 변환
+* split
+  * 문법: str.split([separator[, limit]])
+  * string 객체를 지정한 구분자를 이용하여 여러 개의 문자열로 나누는 메서드이다.
+  * str을 separator마다 끊은 부분 문자열을 담은 배열을 반환한다.
+  * separator
+    * 실제 문자열(대소문자 구분)이나 정규표현식, 배열을 받을 수 있다.
+    * 문자열 유형의 separator가 두 글자 이상일 경우 그 부분 문자열 전체가 일치해야 끊어진다.
+    * separator가 생략되거나 str에 등장하지 않을 경우, 원본 문자열을 유일한 원소로 가진 배열을 반환한다.
+    * separator가 빈 문자열일 경우 str의 각각의 문자가 배열의 원소 하나씩으로 변환된다.
+  * limit
+    * 끊어진 문자열의 최대 개수를 나타내는 정수입니다.
+    * 배열의 원소가 limit개가 되면 멈추고 남은 문자열은 반환되는 배열에 포함되지 않는다.
+  <pre>
+    <code>
+      var str = "My name is dony. My sister is jenny."
+      str.split(" "); // ["My", "name", "is", "dony.", "My", "sister", "is", "jenny."]
+      str.split("", 5); // ["M", "y", " ", "n", "a"]
+      str.split(""); // ["My name is dony. My sister is jenny."]
+      str.split(); // ["My name is dony. My sister is jenny."]
+
+      var myString = "ca,bc,a,bca,bca,bc";
+      myString.split(["a", "b"]); // ["c", "c,", "c", "c", "c"] ( => myString.split(String(["a", "b"]))
+    </code>
+  </pre>
+
+## 배열 요소들 하나로 합치기
+* join
+  * 문법: arr.join([separator])
+  * 배열의 모든 요소를 연결해 하나의 문자열로 만들어 반환하는 메서드이다.
+  * 모든 배열 요소가 문자열로 변환된 다음 하나의 문자열로 연결됩니다.
+  * 요소가 undefined 또는 null이면 빈 문자열로 변환합니다.
+  * separator
+    * 배열의 각 요소를 구분할 문자열을 지정합니다.
+    * 이 구분자는 필요한 경우 문자열로 변환됩니다.
+    * 생략하면 배열의 요소들이 쉼표로 구분됩니다.
+    * 빈 문자열이면 모든 요소들이 사이에 아무 문자도 없이 연결됩니다.
+  <pre>
+    <code>
+      var a = ["가", "나다", "라"];
+      a.join(); // "가,나다,라"
+      a.join(", "); // "가, 나다, 라"
+      a.join(" + "); // "가 + 나다 + 라"
+      a.join(""); // "가나다라"
     </code>
   </pre>
 
