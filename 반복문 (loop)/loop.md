@@ -1,292 +1,116 @@
-# 배열(array) 메서드
-## 배열의 요소 추가
-* push
-  * 문법: array.push(element1[, ...[, elementN]]))  
-  * 배열의 맨끝에 element를 추가하는 메서드이다.
-  * 여러개도 가능하다.
-  * 배열의 길이를 반환한다.  
-  * push로 두 배열을 합칠수도 있다.
-    * 두번째 배열의 모든 엘리먼트를 push 하기 위해 apply()를 사용한다.
-    * 그러나 만약 두번째 배열(아래 예제에서는 arr2)이 매우 클 경우, 이 메소드를 사용하지 말아야 한다. 실제로 한 함수가 사용가능한 매개변수의 최대 개수에는 제한이 있기 때문이다.
+# 반복문
+* for
+  * 문법
   <pre>
     <code>
-      var arr = ["a", "b"];
-      var count1 = arr.push("c");
-      console.log(count1); // 3
-      console.log(arr); // ["a", "b", "c"]
-      var count2 = arr.push("d", "e");
-      console.log(count); // 5
-      console.log(arr); // ["a", "b", "c", "d", "e"]
-
-      var arr1 = ["a", "b"];
-      var arr2 = ["c", "d", "e"];
-
-      // 첫번째 배열에 두번째 배열을 합친다.
-      // arr1.push("c", "d", "e"); 하는 것과 동일하다.
-      Array.prototype.push.apply(arr1, arr2);
-
-      console.log(arr1); // ["a", "b", "c", "d", "e"]
+      for (초기문; 조건문; 증감문){
+        실행문;
+      } // 실행문이 한 줄인 경우 중괄호 생략 가능
     </code>
-  </pre>
-* unshift
-  * 문법: array.unshift(element1[, ...[, elementN]]))  
-  * 배열의 맨앞에 element를 추가하는 메서드이다.
-  * 여러개도 가능하다.
-  * 배열의 길이를 반환한다.  
-  <pre>
+  </pre>  
+  * 조건문이 falsy로 판별될 때까지 실행문을 반복한다.
+  * for문이 실행되는 순서
+    1. 초기화 구문인 초기문이 존재한다면 for문이 실행될 때 제일 처음으로 한번만 실행된다. 이 표현은 보통 변수로 선언되어 0이나 반복문 카운터로 초기 설정이 된다.
+    2. 조건문은 조건을 검사한다. 만약 조건문이 truthy라면 실행문으로 넘어가게 되고, 만약 조건문이 falsy라면 그 for문은 여기서 종결된다. 만약 그 조건문이 생략된다면, 그 조건문은 truthy로 추정한다.
+    3. 실행문이 실행된다. 많은 문장을 실행할 경우엔, { } 를 써서 문장들을 묶어준다.
+    4. 갱신 구문인 증감문이 존재한다면 실행되고, 2번째 단계로 돌아가 falsy가 반환될 때까지 계속 반복 된다.
+    <pre>
+      <code>
+      var i;
+      function init () {
+        console.log('A');
+        i = 0;
+      }
+      function condition () {
+        console.log('B');
+        // if(i < 2){
+        // 	return true;
+        // }
+        return i < 2; // 위의 if문과 동일
+      }
+      function update () {
+        console.log('C');
+        i++;
+      }
+
+      for (init(); condition(); update()) {
+      }
+
+      // A > B > C > B > C > B
+      </code>
+    </pre>
+  * 앞의 초기문, 조건문, 증감문은 모두 생략이 가능하다. (반복문 이전의 코드에서 변수를 선언했을 경우나 실행문에서 증감을 할 경우 등등)
+
+* while
+  * 문법
+  <pre>  
     <code>
-      var arr = ["d", "e"];
-
-      var count1 = arr.unshift("c");
-      console.log(count1); // 3
-      console.log(arr); // ["c", "d", "e"]
-
-      var count1 = arr.unshift("a", "b");
-      console.log(count2); // 5
-      console.log(arr); // [""a", "b", "c", "d", "e"]
+      while (조건문;){
+          실행문;
+      }
     </code>
-  </pre>
-
-## 배열의 요소 제거
-* pop 
-  * 문법: array.pop()  
-  * 배열의 맨끝에 요소를 제거하는 메서드이다.
-  * 제거된 요소를 반환한다.  
-  * 빈 배열에 pop을 호출하면 undefined를 반환한다. 
+  </pre>  
+  * 조건문이 falsy로 판별될 때까지 실행문을 반복한다.
   <pre>
     <code>
-      var arr = ["a", "b", "c", "d", "e"];
-      var element = arr.pop();
-      console.log(element); // "e"
-      console.log(arr); // ["a", "b", "c", "d"]
-    </code>
-  </pre>
-* shift
-  * 문법: array.shift()  
-  * 배열의 맨앞에 요소를 제거하는 메서드이다.
-  * 제거된 요소를 반환한다. 빈 배열에 shift를 호출하면 undefined를 반환한다.   
-  <pre>
-    <code>
-      var arr = ["a", "b", "c", "d", "e"];
+      var i = 0;
+      while (i < 3) {
+        alert(i); // 0, 1, 2
+        i++;
+      }
       
-      var element = arr.shift();
-      console.log(element); // "a"
-      console.log(arr); // ["b", "c", "d", "e"]
-    </code>
-  </pre>
-* splice
-  * 문법: array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
-  * 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가해주는 메서드이다.
-  * 제거한 요소를 담은 배열을 반환한다. 아무 값도 제거하지 않았으면 빈 배열을 반환한다.
-  * start
-    * 배열의 변경을 시작할 인덱스
-    * 배열의 길이보다 큰 값일 경우 배열의 길이로 설정된다.
-    * 음수인 경우 배열의 끝에서부터 음수의 절대값만큼 거꾸로 계산된다. 음수값의 절대값이 배열의 길이 보다 큰 경우 0으로 설정된다.
-  * deleteCount
-    * 배열에서 제거할 요소의 수입니다.
-    * 생략하거나 값이 array.length - start보다 크면 start부터 모든 요소를 제거한다.
-    * deleteCount가 음수라면 어떤 요소도 제거하지 않는다. 이 때는 최소한 하나의 새로운 요소(item1)를 지정해야 한다.
-  * item1, item2, ...
-    * 배열에 추가할 요소이다. 아무 요소도 지정하지 않으면 splice()는 요소를 제거하기만 한다.
-  <pre>
-    <code>
-      // 제거
-      var arr1 = ["a", "b", "c", "d", "e"];
-      arr.splice(1, 3); // ["a", "e"]
-      console.log(removeArr); // ["b", "c", "d"]
-
-      var arr1 = ["a", "b", "c", "d", "e"];
-      arr.splice(2); // ["d", "e"]
-      console.log(removeArr); // ["a", "b", "c"]
-
-      var arr1 = ["a", "b", "c", "d", "e"];
-      arr.splice(-2, 3); // ["a", "b", "c"]
-      console.log(removeArr); // ["d", "e"]
-
-      var arr1 = ["a", "b", "c", "d", "e"];
-      arr.splice(-6, 3); // ["d", "e"] ( => arr.splice(0, 3) )
-      console.log(removeArr); // ["a", "b", "c"]
-
-      var arr1 = ["a", "b", "c", "d", "e"];
-      arr.splice(1, -3); // ["a", "b", "c", "d", "e"] ( => arr.splice(1, 0) )
-      console.log(removeArr); // []
-
-
-      // 제거하지 않고, 추가
-      var arr2 = ["a", "b", "c", "d", "e"];
-      arr.splice(1, 0, "aa"); // ["a", "aa" "b", "c", "d", "e"]
-      console.log(addArr); // []
-
-
-      // 제거하고, 그 자리에 추가
-      var arr2 = ["a", "b", "c", "d", "e"];
-      arr.splice(1, 3, "aa"); // ["a", "aa", "e"]
-      console.log(addArr); // ["b", "c", "d"]
+      var i = 2;
+      while (i >= 0) {
+        alert(i); // 2, 1, 0
+        i--;
+      }
     </code>
   </pre>
 
-## 배열의 일부 요소 가져오기
-* slice  
-  * 문법: array.slice(start[, end])  
-  * 배열열의 start부터 end 전까지 배열의 부분 새로운 문자열을 반환해주는 메서드이다.  
-  * splice와 다르게 원본 배열은 바뀌지 않는다. (얕은 복사본을 반환)
-  * start
-    * undefined인 경우에는, 0번 인덱스부터 slice 한다.
-    * 배열의 길이보다 큰 경우에는, 빈 배열을 반환한다.
-    * 음수인 경우 배열의 끝에서부터 음수의 절대값만큼 거꾸로 계산된다. 음수값의 절대값이 배열의 길이 보다 큰 경우 0으로 설정된다.
-  * end
-    * 음수인 경우 배열의 끝에서부터의 길이를 나타낸다. 예를들어 slice(2,-1) 는 세번째부터 끝에서 두번째 요소까지 추출한다.
-    * 생략하거나 값이 array.length보다 크면 start부터 모든 요소를 추출한다.
+* for ... in
+  * 문법
   <pre>
     <code>
-      var arr = ["a", "b", "c", "d", "e"];
-      arr.slice(1, 3); // ["b", "c"]
-      arr.slice(-2, 3); // ["d", "e"]
-      arr.slice(3); // ["d", "e"]
-      arr.slice(); // ["a", "b", "c", "d", "e"]
-      arr.slice(7); // []
-      console.log(arr); // ["a", "b", "c", "d", "e"]
+      for (변수 in 객체){
+        실행문;
+      }
     </code>
   </pre>
-
-## 문자열을 배열로 변환
-* split
-  * 문법: str.split([separator[, limit]])
-  * string 객체를 지정한 구분자를 이용하여 여러 개의 문자열로 나누는 메서드이다.
-  * str을 separator마다 끊은 부분 문자열을 담은 배열을 반환한다.
-  * separator
-    * 실제 문자열(대소문자 구분)이나 정규표현식, 배열을 받을 수 있다.
-    * 문자열 유형의 separator가 두 글자 이상일 경우 그 부분 문자열 전체가 일치해야 끊어진다.
-    * separator가 생략되거나 str에 등장하지 않을 경우, 원본 문자열을 유일한 원소로 가진 배열을 반환한다.
-    * separator가 빈 문자열일 경우 str의 각각의 문자가 배열의 원소 하나씩으로 변환된다.
-  * limit
-    * 끊어진 문자열의 최대 개수를 나타내는 정수입니다.
-    * 배열의 원소가 limit개가 되면 멈추고 남은 문자열은 반환되는 배열에 포함되지 않는다.
+  * 상속된 열거 가능한 속성들을 포함하여 객체에서 문자열로 키가 지정된 모든 열거 가능한 속성에 대해 반복한다.
   <pre>
-    <code>
-      var str = "My name is dony. My sister is jenny."
-      str.split(" "); // ["My", "name", "is", "dony.", "My", "sister", "is", "jenny."]
-      str.split("", 5); // ["M", "y", " ", "n", "a"]
-      str.split(""); // ["My name is dony. My sister is jenny."]
-      str.split(); // ["My name is dony. My sister is jenny."]
+  <code>
+    const object = { a: 1, b: 2, c: 3 };
+    for (const property in object) {
+      console.log(`${property}: ${object[property]}`);
+    }
 
-      var myString = "ca,bc,a,bca,bca,bc";
-      myString.split(["a", "b"]); // ["c", "c,", "c", "c", "c"] ( => myString.split(String(["a", "b"]))
-    </code>
+    // "a: 1"
+    // "b: 2"
+    // "c: 3"
+  </code>
   </pre>
 
-## 배열 요소들 하나로 합치기
-* join
-  * 문법: arr.join([separator])
-  * 배열의 모든 요소를 연결해 하나의 문자열로 만들어 반환하는 메서드이다.
-  * 모든 배열 요소가 문자열로 변환된 다음 하나의 문자열로 연결됩니다.
-  * 요소가 undefined 또는 null이면 빈 문자열로 변환합니다.
-  * separator
-    * 배열의 각 요소를 구분할 문자열을 지정합니다.
-    * 이 구분자는 필요한 경우 문자열로 변환됩니다.
-    * 생략하면 배열의 요소들이 쉼표로 구분됩니다.
-    * 빈 문자열이면 모든 요소들이 사이에 아무 문자도 없이 연결됩니다.
+* do ... while
+  * 문법
   <pre>
     <code>
-      var a = ["가", "나다", "라"];
-      a.join(); // "가,나다,라"
-      a.join(", "); // "가, 나다, 라"
-      a.join(" + "); // "가 + 나다 + 라"
-      a.join(""); // "가나다라"
+      do {
+        실행문
+      }
+      while (조건문);
     </code>
   </pre>
-
-## 배열의 순서 반전
-* reverse 
-  * 문법: array.reverse()  
-  * 배열의 순서를 반전하는 메서드이다.
-  * 원본 배열을 반전하며 그 참조를 반환한다.
+  * 조건문이 falsy로 판별될 때까지 실행문을 반복한다.
+  * 단, 구문이 실행된 뒤에 테스트 조건이 평가됨으로 구문은 무조건 한 번은 실행된다.
   <pre>
     <code>
-      var arr1 = ["a", "b", "c", "d"];
-      var arr2 = arr.reverse();
-      console.log(arr1); // ["d", "c", "b", "a"]
-      console.log(arr2); // ["d", "c", "b", "a"]
-    </code>
-  </pre>
+      let result = '';
+      let i = 0;
+      do {
+        i++;
+        result += i;
+      } while (i < 5);
 
-## 배열의 순서 정렬
-* sort 
-  * 문법: array.sort([compareFunction])  
-  * 배열의 순서를 **문자열의 유니코드 코드 포인트**를 따라 정렬하는 메서드이다.
-    * compareFunction이 제공되지 않으면 요소를 문자열로 변환하고 오름차순으로 정렬된다.
-    * 문자에서 대소문자를 구분하여 정렬된다. (대문자가 오름차순에서 우선이다.)
-    * 숫자 또한 문자로 인식하기 때문에 숫자의 첫번째 자리를 기준으로 정렬된다. (음수일 경우 음수 오름차순에서 우선되고, 음수의 첫번째 자리를 기준으로 정렬된다.)
-  * 원본 배열을 정렬하며 그 참조를 반환한다.
-  <pre>
-    <code>
-      var strArr1 = ["b", "e", "a", "d"];
-      console.log(strArr1.sort()); // ["a", "b", "c", "d"]
-
-      var strArr2 = ["a", "A", "B", "b"]
-      console.log(strArr2.sort()); // ["A", "B", "a", "b"]
-
-      var numArr1 = [2, 10, 5, 2];
-      console.log(numArr1.sort()); // [2, 2, 5, 10]
-
-      var numArr2 = [200, 10, 3, -3, ,-300, -100];
-      console.log(numArr2.sort()); // [-100, -3, -300, 10, 200, 3]
-    </code>
-  </pre>
-
-  원하는대로 정렬한 결과를 얻기 위해서는 compareFuction을 넣어주어야한다.
-  <pre>
-    <code>
-      // 숫자 오름차순으로 정렬
-      numArr.sort(function compareNumbers(a, b) {
-        return a - b;
-      });
-
-      // 숫자 내림차순으로 정렬
-      numArr.sort(function compareNumbers(a, b) {
-        return b - a;
-      });
-
-      // 숫자 또는 문자 정렬에 경우를 다르게 줄 경우
-      numNum.sort(function (a, b) {
-        if (a > b) {
-          // b가 더 클 경우(오름차순)
-        }
-        if (a < b) {
-          // a가 더 클 경우(내림차순)
-        }
-        // a랑 b가 같을 경우
-        return 0;
-      });
-
-      strNum.sort(function (a, b) {
-        var nameA = a.toUpperCase(); // 대소문자 구분을 없애 정렬
-        var nameB = b.toUpperCase(); // 대소문자 구분을 없애 정렬
-
-        if (nameA > nameB) {
-          // a가 먼저 올 경우(오름차순)
-        }
-        if (nameA < nameB) {
-          // b가 먼저 올 경우(오름차순)
-        }
-        // a랑 b가 같을 경우
-        return 0;
-      });
-    </code>
-  </pre>
-
-## Reference
-* []
-  * 문법: array[index] = element  
-  * 대괄호를 이용하여 배열의 index 위치에 element를 추가하거나 수정할 수 있다.  
-  <pre>
-    <code>
-      var arr = ["a", "b", "c"];
-      arr[5] = "f";
-      console.log(arr); // ["a", "b", "c", empty x 2, "f"]
-      console.log(arr[3]); // undefined
-      arr[3] = "d";
-      console.log(arr); // ["a", "b", "c", "d", empty, "f"]
-      console.log(arr[3]); // "d"
+      console.log(result); // "12345"
     </code>
   </pre>
