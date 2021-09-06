@@ -1,0 +1,25 @@
+# 문자열을 배열로 변환
+## split
+* 문법: str.split([separator[, limit]])
+* string 객체를 지정한 구분자를 이용하여 여러 개의 문자열로 나누는 메서드이다.
+* str을 separator마다 끊은 부분 문자열을 담은 배열을 반환한다.
+* separator
+  * 실제 문자열(대소문자 구분)이나 정규표현식, 배열을 받을 수 있다.
+  * 문자열 유형의 separator가 두 글자 이상일 경우 그 부분 문자열 전체가 일치해야 끊어진다.
+  * separator가 생략되거나 str에 등장하지 않을 경우, 원본 문자열을 유일한 원소로 가진 배열을 반환한다.
+  * separator가 빈 문자열일 경우 str의 각각의 문자가 배열의 원소 하나씩으로 변환된다.
+* limit
+  * 끊어진 문자열의 최대 개수를 나타내는 정수입니다.
+  * 배열의 원소가 limit개가 되면 멈추고 남은 문자열은 반환되는 배열에 포함되지 않는다.
+<pre>
+  <code>
+    var str = "My name is dony. My sister is jenny."
+    str.split(" "); // ["My", "name", "is", "dony.", "My", "sister", "is", "jenny."]
+    str.split("", 5); // ["M", "y", " ", "n", "a"]
+    str.split("B"); // ["My name is dony. My sister is jenny."]
+    str.split(); // ["My name is dony. My sister is jenny."]
+
+    var myString = "ca,bc,a,bca,bca,bc";
+    myString.split(["a", "b"]); // ["c", "c,", "c", "c", "c"] ( => myString.split(String(["a", "b"]))
+  </code>
+</pre>
