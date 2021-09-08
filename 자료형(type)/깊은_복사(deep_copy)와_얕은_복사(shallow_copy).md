@@ -28,7 +28,6 @@
     console.log(copyArr); // ["a", "b"]
     console.log(arr === copyArr); // true
     
-
     var obj = {
       a: 1
     }
@@ -74,7 +73,7 @@
   </code>
 
 * 전개 연산자(Spread Operator)
-  * 문법: { ...할당할 객체 }
+  * 문법: { ...target }
   * Object.assign()과 마찬가지로 완벽한 깊은 복사가 아니다. 객체 안의 객체인 2중 객체일 경우, *안의 하위 객체까지는 깊은 복사가 이루어지지 않는다.*
   <code>
     <pre>
