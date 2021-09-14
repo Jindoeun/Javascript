@@ -51,6 +51,24 @@
     console.log(indices); // [4, 2, 0]
   </code>
 </pre>
+
+## findIndex
+* 문법: arr.findIndex(callback(element[, index[, array]])[, thisArg])
+  * callback: 3개의 인수를 취하여 배열의 각 값에 대해 실행할 함수이다.
+  * element: 배열에서 처리중인 현재 요소이다.
+  * index: 배열에서 처리중인 현재 요소의 인덱스이다.
+  * array: findIndex 함수가 호출된 배열이다.
+  * thisArg: 콜백을 실행할 때 this로 사용할 객체이다. 
+* callback의 조건에 맞는 요소를 찾으면 해당 요소의 위치를, 찾지못하면 -1을 반환한다.
+<pre>
+  <code>
+    var arr = [1, 5, 6, 3, 4, 7];
+    var find1 = arr.findIndex((element) => element % 2 === 0);
+    var find2 = arr.findIndex((element) => element < 0);
+    console.log(find1); // 2 (6의 index)
+    console.log(find2); // -1
+  </code>
+</pre>
   
 ## []
 * 문법: array[index] = element  
