@@ -59,14 +59,18 @@
   * index: 배열에서 처리중인 현재 요소의 인덱스이다.
   * array: findIndex 함수가 호출된 배열이다.
   * thisArg: 콜백을 실행할 때 this로 사용할 객체이다. 
-* callback의 조건에 맞는 요소를 찾으면 해당 요소의 위치를, 찾지못하면 -1을 반환한다.
+* callback의 조건에 맞는 최초의 요소를 찾으면 해당 요소의 위치를, 찾지 못하면 -1을 반환하고 즉시 종료된다.
 <pre>
   <code>
     var arr = [1, 5, 6, 3, 4, 7];
     var find1 = arr.findIndex((element) => element % 2 === 0);
     var find2 = arr.findIndex((element) => element < 0);
-    console.log(find1); // 2 (6의 index)
+    console.log(find1); // 2 (6의 위치)
     console.log(find2); // -1
+    
+    var objArr = [{alphabet: "a", index: 1},{alphabet: "b", index: 2}, {alphabet: "c", index: 3}];
+    var find3 = objArr.findIndex((element)=> element.index === 2);
+    console.log(find3) // 1 ({alphabet: "b", index: 2}의 위치)
   </code>
 </pre>
   
