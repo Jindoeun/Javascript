@@ -3,7 +3,7 @@
 * 문법: array.map(callback(currentValue[, index[, array]])[, thisArg])
   * array.map(x => x에 대해 arrow function);  
   array.map(function(x) { x에 대한 function});
-* 반복문을 돌며 배열 안의 요소들을 하나씩 callback 함수의 조건에 맞게 바꾸어 **새로운 배열**을 반환하는 메서드이다.
+* 반복문을 돌며 배열 안의 요소들을 하나씩 callback 함수의 조건에 맞게 바꾸어 **새로운 배열**을 반환하는 메서드이다. array 전체를 하나씩 돌기 때문에 반환되는 배열은 array와 길이가 같으며, 해당 currentValue때, 반환되는 값이 없으면 undefined로 처리된다.
   * currentValue: 처리할 현재 요소
   * index: 처리할 현재 요소의 인덱스.
   * array: map()을 호출한 배열.
@@ -12,13 +12,17 @@
   <code>
   var arr = [1, 2, 3];
 
-  var result = arr.map(x => {
+  var result1 = arr.map(x => {
+    return x * 2;
+  });
+  result1; // [2, 4, 6]
+
+  var result2 = arr.map(x => {
     if (x % 2) {
       return '홀수';
     }
-    return '짝수';
   });
-  result; // ['홀수', '짝수', '홀수']
+  result2; // ['홀수', undefined, '홀수']
   </code>
 </pre>
 
@@ -45,11 +49,11 @@ forEach는 결과로 새로운 배열을 가지기 위해서 배열을 만들어
 ## object에서 map 활용
 <pre>
   <code>
-  var Array = [{key:1, value:10},
+  var array = [{key:1, value:10},
               {key:2, value:20},
               {key:3, value: 30}];
              
-  var result = Array.map(function(el){ 
+  var result = array.map(function(el){ 
     var obj = {};
     obj[el.key] = el.value;
     return obj;
