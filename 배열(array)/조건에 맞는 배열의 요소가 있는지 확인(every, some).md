@@ -28,7 +28,7 @@
 
     // 요소 수정
     var arr = [1, 2, 3, 4];
-    arr.every( (current, index, array) => {
+    arr.every((current, index, array) => {
       arr[index+1] -= 1
       console.log(current, index, array)
       return current < 2
@@ -42,14 +42,15 @@
     // 요소 추가
     var arr = [1, 2, 3, 4];
     arr.every((current, index, array) => {
-    if(index >= 1) arr.splice(2, 0, '0');
+    if(index >= 1) arr.splice(2, 0, 0);
       console.log(current, index, array);
-      return current < 4
+      return current < 3
     });
     // 1 0 [1, 2, 3, 4]
-    // 2 1 [1, 2, '0', 3, 4]
-    // 0 2 [1, 2, '0', '0', 3, 4]
-    // 0 3 [1, 2, '0', '0', '0', 3, 4]
+    // 2 1 [1, 2, 0, 3, 4]
+    // 0 2 [1, 2, 0, 0, 3, 4]
+    // 0 3 [1, 2, 0, 0, 0, 3, 4]
+    // true
 
 
     // 요소 삭제
